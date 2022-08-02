@@ -1,0 +1,13 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/inter.css);
+
+.page {
+  box-sizing: border-box;
+  font-family: "Inter", Arial, sans-serif;
+  color: #000;
+  background-color: #fff;
+}
+
+.no-scroll {
+  overflow: hidden;
+}

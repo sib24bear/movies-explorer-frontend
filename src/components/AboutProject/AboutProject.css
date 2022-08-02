@@ -1,0 +1,149 @@
+.about-project {
+  display: flex;
+}
+
+.about-project__container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 110px 70px;
+}
+
+.about-project__description {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 40px;
+  padding-top: 70px;
+}
+
+.about-project__timeline {
+  display: grid;
+}
+
+.about-project__description-title {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24.2px;
+  color: #000;
+}
+
+.about-project__description-text {
+  margin: 0;
+  padding: 0;
+  padding-top: 26px;
+  max-width: 550px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #000;
+}
+
+.about-project__timeline {
+  display: grid;
+  grid-template-columns: 228px 1fr;
+  align-items: stretch;
+  padding-top: 110px;
+}
+
+.about-project__times {
+  margin: 0;
+  padding: 9px 14px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  color: #000;
+}
+
+.about-project__times_type_one-week {
+  color: #fff;
+  background-color: #000;
+}
+
+.about-project__times_type_four-week {
+  background-color: #f2f2f2;
+}
+
+.about-project__times-description {
+  margin: 0;
+  padding: 14px 14px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  color: #a0a0a0;
+}
+
+@media (max-width: 1129.9px) {
+  .about-project__container {
+    padding: 90px 50px;
+  }
+
+  .about-project__description {
+    grid-gap: 30px;
+  }
+
+  .about-project__description-text {
+    padding-top: 22px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-project__timeline {
+    grid-template-columns: 140px 1fr;
+    padding-top: 93px;
+  }
+}
+
+@media (max-width: 767.9px) {
+  .about-project__container {
+    padding: 70px 24px;
+  }
+
+  .about-project__description {
+    grid-template-columns: 1fr;
+    grid-gap: 50px;
+    padding-top: 60px;
+  }
+
+  .about-project__description-title {
+    font-size: 18px;
+    line-height: 21.78px;
+  }
+
+  .about-project__description-text {
+    padding-top: 16px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-project__timeline {
+    grid-template-columns: 100px 1fr;
+    padding-top: 60px;
+  }
+
+  .about-project__times {
+    padding: 11px 10px;
+    font-size: 11px;
+    line-height: 13.31px;
+  }
+
+  .about-project__times-description {
+    padding: 10px 10px;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 12.74px;
+  }
+}
+
+@media (max-width: 424.9px) {
+  .about-project__container {
+    min-width: 320px;
+    padding: 70px 18px;
+  }
+}

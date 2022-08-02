@@ -1,0 +1,139 @@
+.navigation {
+  display: flex;
+}
+
+.navigation__list {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation__item {
+  display: block;
+}
+
+.navigation__link {
+  margin: 0;
+  margin-left: 30px;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #000;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity .3s ease-in-out;
+}
+
+.navigation__link:hover {
+  opacity: .6;
+}
+
+.navigation__link_type_button {
+  padding: 8px 20px;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #000;
+}
+
+.navigation__link_type_logined {
+  margin-left: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.navigation__link_type_profile {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.navigation__link_type_profile::after {
+  display: inline-block;
+  content: '';
+  width: 30px;
+  height: 30px;
+  margin-left: 13px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  background-image: url("../../images/profile-icon.svg");
+  background-repeat: no-repeat;
+  background-size: 10px;
+  background-position: 50% 50%;
+}
+
+.navigation__link_type_active {
+  font-weight: 500;
+}
+
+@media (max-width: 1129.9px) {
+  .menu_open {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    justify-content: flex-end;
+    background-color: #00000061;
+    z-index: 10;
+  }
+
+  .menu__list {
+    display: none;
+    grid-template-rows: repeat(3, max-content) 1fr;
+    justify-content: center;
+    justify-items: center;
+    align-items: end;
+    row-gap: 28px;
+    width: 70%;
+    padding: 153px 0 92px;
+    background-color: #fff;
+  }
+
+  .menu__list_open {
+    display: grid;
+  }
+
+  .navigation__link_type_logined {
+    margin-left: 0;
+    padding-bottom: 3px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21.78px;
+  }
+
+  .navigation__link_type_active {
+    border-bottom: 2px solid #000;
+  }
+
+  .navigation__link_type_profile {
+    margin-left: 0;
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 567.9px) {
+  .menu__list {
+    row-gap: 24px;
+    width: 100%;
+    padding: 144px 10 48px;
+  }
+
+  .navigation__link_type_login {
+    font-size: 10px;
+    line-height: 16px;
+  }
+
+  .navigation__link_type_button {
+    margin-left: 14px;
+    padding: 6px 10px;
+    font-size: 10px;
+    line-height: 16px;
+  }
+}

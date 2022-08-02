@@ -1,0 +1,22 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background-color: #000;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: opacity .3s ease-in-out;
+}
+
+.logo:hover {
+  opacity: .6;
+  transition: opacity .3s ease-in-out;
+}
+
+.logo-img {
+  min-width: 20px;
+  min-height: 19px;
+  padding-top: 2px;
+}
