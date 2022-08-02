@@ -25,7 +25,7 @@ function App() {
   });
 
   return (
-    <div className="page no-scroll">
+    <div className="page">
       <Switch>
         <Route exact path="/">
           <Main />
