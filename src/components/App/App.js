@@ -25,7 +25,7 @@ function App() {
   });
 
   return (
-    <div className="page">
+    <>
       <Switch>
         <Route exact path="/">
           <Main />
@@ -74,7 +74,7 @@ function App() {
           <PageNotFound history={history}/>
         </Route>
       </Switch>
-    </div>
+    </>
   );
 }
 

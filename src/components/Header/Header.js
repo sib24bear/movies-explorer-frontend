@@ -2,10 +2,10 @@ import './Header.css';
 import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
 
-function Header({ loggedIn, isOpen, setIsOpen }) {
+function Header({ loggedIn, isOpen, setIsOpen, main }) {
 
   return (
-    <header className="header">
+    <header className={main ? "header header-main" : "header"}>
       <div className="header__container">
         <Logo />
         <Navigation

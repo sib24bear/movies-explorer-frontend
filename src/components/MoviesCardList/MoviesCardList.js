@@ -14,14 +14,16 @@ function MoviesCardList({ isLiked, isSaved, moviesList, isPreloader, onPreloader
           {
             moviesList.map((movie) => {
               return (
-                <MoviesCard
-                  key={movie.id}
-                  isLiked={isLiked}
-                  isSaved={isSaved}
-                  nameRU={movie.nameRU}
-                  duration={movie.duration}
-                  imageLink={movie.image.formats.thumbnail.url}
-                />
+                <li className="movies-cards__item">
+                  <MoviesCard
+                    key={movie.id}
+                    isLiked={isLiked}
+                    isSaved={isSaved}
+                    nameRU={movie.nameRU}
+                    duration={movie.duration}
+                    imageLink={movie.image.formats.thumbnail.url}
+                  />
+                </li>
               )
             })
           }
