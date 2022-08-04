@@ -23,17 +23,22 @@ function Navigation({ loggedIn, isOpen, setIsOpen }) {
               isOpen ? "navigation__list menu__list menu__list_open" : "navigation__list menu__list"
             }
           >
-            <li className="navigation__item menu__item"> 
-              <NavLink
-                onClick={handleClick}
-                exact
-                to="/"
-                className="navigation__link navigation__link_type_logined"
-                activeClassName="navigation__link_type_active"
-              >
-                Главная
-              </NavLink>
-            </li>
+            {
+              isOpen ?
+                <li className="navigation__item menu__item"> 
+                  <NavLink
+                    onClick={handleClick}
+                    exact
+                    to="/"
+                    className="navigation__link navigation__link_type_logined"
+                    activeClassName="navigation__link_type_active"
+                  >
+                    Главная
+                  </NavLink>
+                </li>
+              :
+                '' 
+            }
             <li className="navigation__item menu__item"> 
               <NavLink
                 onClick={handleClick}

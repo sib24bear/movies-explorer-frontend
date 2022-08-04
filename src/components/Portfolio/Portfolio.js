@@ -7,7 +7,7 @@ function Portfolio() {
         <h2 className="portfolio__title">Портфолио</h2>
         <ul className="portfolio__list">
             <li className="portfolio__list-item">
-              <a className="portfolio__link" href="https://github.com/sib24bear/how-to-learn" target="_blank" rel="noreferrer">Статичный сайт</a>
+              <a className="portfolio__link" href="https://sib24bear.github.io/how-to-learn/index.html" target="_blank" rel="noreferrer">Статичный сайт</a>
             </li>
             <li className="portfolio__list-item">
               <a className="portfolio__link" href="https://sib24bear.github.io/russian-travel/index.html" target="_blank" rel="noreferrer">Адаптивный сайт</a>

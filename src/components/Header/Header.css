@@ -3,6 +3,10 @@
   position: relative;
 }
 
+.header-main {
+  background-color: #f3c1f8;
+}
+
 .header__container {
   box-sizing: border-box;
   display: flex;

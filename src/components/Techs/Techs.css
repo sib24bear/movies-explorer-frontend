@@ -88,6 +88,10 @@
 }
 
 @media (max-width: 767.9px) {
+  .techs {
+    background-color: #fff;
+  }
+  
   .techs__container {
     padding: 70px 24px;
   }

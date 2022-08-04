@@ -5,7 +5,7 @@ import Footer from '../Footer/Footer';
 function Movies({ isLiked, isSaved, moviesList, isPreloader, onPreloader }) {
   return (
     <>
-      <div className="main">
+      <main className="main">
         <SearchForm />
         <MoviesCardList
           isLiked={isLiked}
@@ -14,7 +14,7 @@ function Movies({ isLiked, isSaved, moviesList, isPreloader, onPreloader }) {
           isPreloader={isPreloader}
           onPreloader={onPreloader}
         />
-      </div>
+      </main>
       <Footer />
     </>
   );
