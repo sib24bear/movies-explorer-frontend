@@ -39,6 +39,10 @@
   border-bottom: 1px solid #e8e8e8;
 }
 
+.profile__field_disabled {
+  cursor: default;
+}
+
 .profile__field:last-of-type {
   border-bottom: none;
 }
@@ -55,6 +59,10 @@
   transition: opacity .3s;
 }
 
+.profile__input:disabled {
+  background-color: transparent;
+}
+
 .profile__input:hover {
   opacity: .6;
 }
@@ -64,12 +72,16 @@
   border-color: #000;
 }
 
-.profile__input::placeholder {
-  color: #000;
+.profile__error-message {
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12.1px;
+  color: #ff4062;
 }
 
 .profile__submit-btn {
-  display: none;
   margin-top: auto;
   padding: 13px 0 15px;
   font-size: 14px;
@@ -80,68 +92,71 @@
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  transition: opacity .3s ease-in-out;
 }
 
-.profile__signin {
-  display: flex;
-  justify-content: center;
-  padding-top: 16px;
+.profile__submit-btn:disabled {
+  display: none;
 }
 
-.profile__signin-text {
+.profile__submit-btn_type_invalid {
+  pointer-events: none;
+  cursor: default;
+  opacity: .6
+}
+
+.profile__submit-btn:hover {
+  opacity: .6;
+}
+
+.profile__info-message {
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  text-align: center;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 16.94px;
-  color: #a0a0a0;
-}
-
-.profile__signin-link {
-  margin: 0;
-  padding: 0;
-  padding-left: 6px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 16.94px;
+  line-height: 14.1px;
   color: #000;
-  text-decoration: none;
 }
 
-.profile__edit-link {
+.profile__edit-btn {
   margin: 0;
   padding: 0;
-  padding-top: 16px;
+  margin-top: 16px;
   font-size: 13px;
   font-weight: 500;
   line-height: 15.73px;
   color: #000;
-  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
   transition: opacity .3s ease-in-out;
 }
 
-.profile__edit-link:hover {
+.profile__edit-btn:hover {
   opacity: .6;
 }
 
-.profile__signout-link {
+.profile__edit-btn:disabled {
+  display: none;
+}
+
+.profile__signout-btn {
   margin: 0;
   padding: 0;
-  padding-top: 16px;
+  margin-top: 16px;
   font-size: 13px;
   font-weight: 500;
   line-height: 15.73px;
   color: #ff4062;
-  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
   transition: opacity .3s ease-in-out;
 }
 
-.profile__signout-link:hover {
+.profile__signout-btn:hover {
   opacity: .6;
-}
-
-@media (max-width: 1129.9px) {
-
 }
 
 @media (max-width: 767.9px) {

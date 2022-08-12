@@ -6,10 +6,15 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-function Main() {
+function Main({ loggedIn, isOpen, setIsOpen }) {
   return (
     <>
-      <Header main={true}/>
+      <Header
+        main={true}
+        loggedIn={loggedIn}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
       <main className="main">
         <Promo />
         <AboutProject />

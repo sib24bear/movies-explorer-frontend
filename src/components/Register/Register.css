@@ -30,16 +30,11 @@
 .register__field {
   display: flex;
   flex-direction: column;
-  padding-bottom: 24px;
   font-size: 10px;
   font-weight: 400;
   line-height: 12.1px;
   color: #a0a0a0;
   cursor: pointer;
-}
-
-.register__field:last-of-type {
-  padding-bottom: 6px;
 }
 
 .register__input {
@@ -67,12 +62,18 @@
 }
 
 .register__error-message {
+  height: 12.1px;
   margin: 0;
   padding: 0;
+  padding-bottom: 24px;
   font-size: 10px;
   font-weight: 400;
   line-height: 12.1px;
   color: #ff4062;
+}
+
+.register__error-message:last-of-type {
+  padding-bottom: 6px;
 }
 
 .register__submit-btn {
@@ -89,8 +90,23 @@
   transition: opacity .3s ease-in-out;
 }
 
+.register__submit-btn_type_invalid {
+  cursor: default;
+  opacity: .6
+}
+
 .register__submit-btn:hover {
   opacity: .6;
+}
+
+.register__info-message {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.1px;
+  color: #000;
 }
 
 .register__signin {

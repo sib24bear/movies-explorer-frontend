@@ -1,35 +1,90 @@
 import './Profile.css';
-import { Link } from 'react-router-dom';
+import { useState, useContext, useEffect } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 
-function Profile() {
+function Profile({ onSignOut, onEditProfile, infoMessage}) {
+  const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
+  const {currentUser} = useContext(CurrentUserContext);
+  const [isEditProfile, setIsEditProfile] = useState(false);
+
+  function handleEditClick() {
+    if (isEditProfile) {
+      setIsEditProfile(false);
+      resetForm();
+    } else {
+      setIsEditProfile(true);
+      resetForm();
+    }
+  }
+
+  function handleSignOutClick() {
+    setIsEditProfile(false);
+    onSignOut();
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setIsEditProfile(false);
+    onEditProfile(values.name, values.email);
+    resetForm();
+  }
+
+  useEffect(() => {
+      setValues(currentUser);
+  }, [currentUser, setValues]);
+
   return (
     <section className="profile">
-      <h3 className="profile__title">Привет, Виталий!</h3>
-      <form className="profile__form" name="profileForm">
-        <label className="profile__field">
+      <h3 className="profile__title">Привет, {currentUser.name}!</h3>
+      <form onSubmit={handleSubmit} className="profile__form" name="profileForm">
+        <label
+          className={isEditProfile ? "profile__field" : "profile__field profile__field_disabled"}
+        >
           Имя
           <input
-            className="profile__input profile__input_type_name"
+            value={values.name || currentUser.name}
+            onChange={handleChange}
+            className={isValid ? "profile__input" : "profile__input profile__input_type_errore"}
             name="name" 
             type="text"
-            placeholder="Виталий"
+            pattern="[а-яА-Яa-zA-ZёË\- ]{1,}"
             required
+            disabled={isEditProfile ? false : true }
           />
         </label>
-        <label className="profile__field">
+        <span className="profile__error-message">
+          {errors.name}
+        </span>
+        <label
+          className={isEditProfile ? "profile__field" : "profile__field profile__field_disabled"}
+        >
           E-mail
           <input
-            className="profile__input profile__input_type_email"
+            value={values.email || currentUser.email}
+            onChange={handleChange}
+            className={isValid ? "profile__input" : "profile__input profile__input_type_errore"}
             name="email" 
             type="email"
-            placeholder="Email"
             required
+            disabled={isEditProfile ? false : true }
           />
         </label>
-        <button className="profile__submit-btn" type="submit">Сохранить</button>
+        <span className="profile__error-message">
+          {errors.email}
+        </span>
+        <button
+          className={isValid ? "profile__submit-btn" : "profile__submit-btn profile__submit-btn_type_invalid"}
+          type="submit"
+          disabled={isEditProfile ? false : true }
+        >Сохранить</button>
       </form>
-      <Link to="/edit" className="profile__edit-link">Редактировать</Link>
-      <Link to="/signout" className="profile__signout-link">Выйти из аккаунта</Link>
+      <span className="profile__info-message">{infoMessage}</span>
+      <button
+        onClick={handleEditClick}
+        className="profile__edit-btn"
+      >{isEditProfile ? "Назад" : "Редактировать" }</button>
+      <button onClick={handleSignOutClick} className="profile__signout-btn">Выйти из аккаунта</button>
     </section>
   );
 }

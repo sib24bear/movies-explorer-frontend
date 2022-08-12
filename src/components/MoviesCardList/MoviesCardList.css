@@ -33,6 +33,18 @@
   justify-content: center;
 }
 
+.movies-cards__no-found {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #000;
+}
+
+.movies-cards__server-error {
+  font-weight: 500;
+  color: #000;
+}
+
 .movies-cards__more-button {
   width: 320px;
   padding: 11px 0 9px;
@@ -50,6 +62,10 @@
 .movies-cards__more-button:hover {
   box-shadow: 2px 1px 2px 1px #f3c1f8;
   opacity: .8;
+}
+
+.movies-cards__more-button_type_hidden {
+  display: none;
 }
 
 @media (max-width: 1129.9px) {

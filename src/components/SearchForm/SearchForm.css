@@ -12,7 +12,7 @@
 
 .search-form {
   display: grid;
-  grid-template-areas: "input button" "switch switch";
+  grid-template-areas: "input button" "error error" "switch switch";
   grid-template-columns: 1fr 44px;
   column-gap: 10px;
   align-items: center;
@@ -42,6 +42,10 @@
   border-radius: 8px;
 }
 
+.search-form__input:invalid {
+  outline-color: #ff4062;
+}
+
 .search-form__submit-btn {
   padding: 22px;
   border: none;
@@ -62,6 +66,17 @@
 
 .search-form__submit-btn:focus {
   box-shadow: 0 0 3px 2px #f3c1f8;
+}
+
+.error-message {
+  grid-area: error;
+  text-align: center;
+  height: 12px;
+  padding-top: 2px;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 12px;
+  color: #ff4062;
 }
 
 @media (max-width: 1129.9px) {

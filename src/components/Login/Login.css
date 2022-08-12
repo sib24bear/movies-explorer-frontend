@@ -30,7 +30,6 @@
 .login__field {
   display: flex;
   flex-direction: column;
-  padding-bottom: 24px;
   font-size: 10px;
   font-weight: 400;
   line-height: 12.1px;
@@ -63,13 +62,18 @@
 }
 
 .login__error-message {
-  display: none;
+  height: 12.1px;
   margin: 0;
   padding: 0;
+  padding-bottom: 24px;
   font-size: 10px;
   font-weight: 400;
   line-height: 12.1px;
   color: #ff4062;
+}
+
+.login__error-message:last-of-type {
+  padding-bottom: 6px;
 }
 
 .login__submit-btn {
@@ -88,6 +92,16 @@
 
 .login__submit-btn:hover {
   opacity: .6;
+}
+
+.login__info-message {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.1px;
+  color: #000;
 }
 
 .login__signin {
@@ -115,6 +129,11 @@
   color: #000;
   text-decoration: none;
   transition: opacity .3s ease-in-out;
+}
+
+.login__submit-btn_type_invalid {
+  cursor: default;
+  opacity: .6
 }
 
 .login__signin-link:hover {
