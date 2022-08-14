@@ -26,6 +26,7 @@ function Movies({
       <main className="main">
         <SearchForm
           isSaved={isSaved}
+          onPreloader={onPreloader}
           onSearchMovie={onSearchMovie}
           onSearchSavedMovies={onSearchSavedMovies}
           onFiltredSavedMovie={onFiltredSavedMovie}
@@ -39,7 +40,6 @@ function Movies({
           isServerError={isServerError}
           moviesList={moviesList}
           isPreloader={isPreloader}
-          onPreloader={onPreloader}
           onLikeMovie={onLikeMovie}
           onDeleteMovie={onDeleteMovie}
           searchingMovies={searchingMovies}

@@ -1,5 +1,6 @@
 import './Register.css';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import Logo from '../Logo/Logo';
 
@@ -10,8 +11,11 @@ function Register({ handleRegister, infoMessage }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleRegister(values.name, values.email, values.password);
-    resetForm();
   }
+
+  useEffect(() => {
+    resetForm();
+  }, [resetForm]);
 
   return (
     <div className="register">

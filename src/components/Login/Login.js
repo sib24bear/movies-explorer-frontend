@@ -1,5 +1,6 @@
 import './Login.css';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import Logo from '../Logo/Logo';
 
@@ -9,8 +10,11 @@ function Login({ handleLogin, infoMessage }) {
   function handleSubmit(e) {
     e.preventDefault();
     handleLogin(values.email, values.password);
-    resetForm();
   }
+
+  useEffect(() => {
+    resetForm();
+  }, [resetForm]);
 
   return (
     <div className="login">
