@@ -46,7 +46,6 @@ function App() {
     return mainApi.register(name, email, password).then((res) => {
       setInfoMessage('Успешно зарегистрировались!');
       handleLogin(email, password);
-      return res.json();
     })
     .catch(err => {
       setInfoMessage(mainApi.errorsMessages(err));
