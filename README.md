@@ -12,5 +12,8 @@
   по роуту /profile отображается страница с профилем пользователя;
   по роутам /signin и /signup отображаются страницы авторизации и регистрации.
 
-### Адрес сервера
+### Адрес проекта
   https://movies.diplom.nomoredomains.xyz
+
+### Pull Request
+  https://github.com/sib24bear/movies-explorer-frontend/pull/2

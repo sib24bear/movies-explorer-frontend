@@ -37,7 +37,8 @@ class MainApi {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ "email": email, "password": password, "name": name })
+      body: JSON.stringify({ "email": email, "password": password, "name": name }),
+      credentials: 'include'
     })
     .then(res => this._checkResponse(res))
   };
@@ -117,8 +118,8 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  //baseUrl: 'http://localhost:3001',
-  baseUrl: 'https://api.movies.diplom.nomoredomains.xyz',
+  baseUrl: 'http://localhost:3001',
+  //baseUrl: 'https://api.movies.diplom.nomoredomains.xyz',
   headers: {
     'Content-Type': 'application/json',
   },

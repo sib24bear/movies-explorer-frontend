@@ -3,18 +3,21 @@ import { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 
-function Profile({ onSignOut, onEditProfile, infoMessage}) {
-  const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
+function Profile({ onSignOut, onEditProfile, infoMessage, onInfoMessage }) {
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const {currentUser} = useContext(CurrentUserContext);
   const [isEditProfile, setIsEditProfile] = useState(false);
+  const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState(false);
 
   function handleEditClick() {
     if (isEditProfile) {
       setIsEditProfile(false);
-      resetForm();
+      onInfoMessage('');
     } else {
       setIsEditProfile(true);
-      resetForm();
+      if (isSubmitBtnDisabled) {
+        onInfoMessage('Чтобы продолжить, измените имя или адерес email')
+      }
     }
   }
 
@@ -27,12 +30,28 @@ function Profile({ onSignOut, onEditProfile, infoMessage}) {
     e.preventDefault();
     setIsEditProfile(false);
     onEditProfile(values.name, values.email);
-    resetForm();
+    onInfoMessage('');
   }
 
+ // const isSubmitBtnDisabled = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
+
   useEffect(() => {
-      setValues(currentUser);
-  }, [currentUser, setValues]);
+    setIsSubmitBtnDisabled(!isValid || (currentUser.name === values.name && currentUser.email === values.email));
+  }, [values.name, values.email]);
+
+  useEffect(() => {
+    if (!isEditProfile) {
+      setIsSubmitBtnDisabled(true);
+      values.name = currentUser.name;
+      values.email = currentUser.email;
+    }
+  }, [isEditProfile]);
+
+  useEffect(() => {
+    if (currentUser) {
+      resetForm(currentUser, {}, true);
+    }
+  }, [currentUser, resetForm]);
 
   return (
     <section className="profile">
@@ -43,7 +62,7 @@ function Profile({ onSignOut, onEditProfile, infoMessage}) {
         >
           Имя
           <input
-            value={values.name || currentUser.name}
+            value={values.name || ''}
             onChange={handleChange}
             className={isValid ? "profile__input" : "profile__input profile__input_type_errore"}
             name="name" 
@@ -61,7 +80,7 @@ function Profile({ onSignOut, onEditProfile, infoMessage}) {
         >
           E-mail
           <input
-            value={values.email || currentUser.email}
+            value={values.email || ''}
             onChange={handleChange}
             className={isValid ? "profile__input" : "profile__input profile__input_type_errore"}
             name="email" 
@@ -74,9 +93,9 @@ function Profile({ onSignOut, onEditProfile, infoMessage}) {
           {errors.email}
         </span>
         <button
-          className={isValid ? "profile__submit-btn" : "profile__submit-btn profile__submit-btn_type_invalid"}
+          className={!isSubmitBtnDisabled ? "profile__submit-btn" : "profile__submit-btn profile__submit-btn_type_invalid"}
           type="submit"
-          disabled={isEditProfile ? false : true }
+          disabled={!isSubmitBtnDisabled ? false : true }
         >Сохранить</button>
       </form>
       <span className="profile__info-message">{infoMessage}</span>

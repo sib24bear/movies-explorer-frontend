@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory, useLocation } from 'react-router-dom';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -11,10 +11,17 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import { SHORT_MOVIE_DURATION } from '../../utils/constants';
 
 function App() {
   const body = document.body;
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [runPreloader, setRunPreloader] = useState(false);
+  const [isShortMovie, setIsShortMovie] = useState(false);
+  const [isFiltredSavedMovie, setIsFiltredSavedMovie] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
+  const [isServerError, setIsServerError] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [moviesList, setMoviesList] = useState([]);
   const [searchingKeyWord, setSearchingKeyWord] = useState('');
@@ -22,15 +29,10 @@ function App() {
   const [filtredMoviesList, setFiltredMoviesList] = useState([]);
   const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [savedFiltredMoviesList, setSavedFiltredMoviesList] = useState([]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [runPreloader, setRunPreloader] = useState(false);
-  const [isShortMovie, setIsShortMovie] = useState(false);
-  const [isFiltredSavedMovie, setIsFiltredSavedMovie] = useState(false);
-  const [isNotFound, setIsNotFound] = useState(false);
-  const [isServerError, setIsServerError] = useState(false);
   const [infoMessage, setInfoMessage] = useState('');
 
   const history = useHistory();
+  const location = useLocation();
 
   function disableScroll() {
     isMenuOpen ? body.classList.add("no-scroll") : body.classList.remove("no-scroll");
@@ -42,11 +44,8 @@ function App() {
 
   function handleRegister(name, email, password) {
     return mainApi.register(name, email, password).then((res) => {
-      if (res.ok) {
-        setInfoMessage('Успешно зарегистрировались!');
-        handleLogin(email, password);
-        return res.json();
-      }
+      setInfoMessage('Успешно зарегистрировались!');
+      handleLogin(email, password);
     })
     .catch(err => {
       setInfoMessage(mainApi.errorsMessages(err));
@@ -60,6 +59,7 @@ function App() {
         if (data.token) {
           setInfoMessage('Добро пожаловать!');
           localStorage.setItem('jwt', data.token);
+          history.push('/movies');
           tokenCheck();
         }
       })
@@ -89,6 +89,7 @@ function App() {
     setSearchingMoviesList([]);
     setSavedMoviesList([]);
     setSavedFiltredMoviesList([]);
+    setSearchingKeyWord('');
     setInfoMessage('');
     setLoggedIn(false);
     setCurrentUser({});
@@ -96,12 +97,15 @@ function App() {
   }
 
   function tokenCheck() {
+    const path = location.pathname;
+
     if (localStorage.getItem('jwt')){
       mainApi.getUserInfo()
       .then((res) => {
         if (res){
           setCurrentUser(res.user);
           setLoggedIn(true);
+          history.push(path);
         }
       })
       .catch(err => {
@@ -144,6 +148,7 @@ function App() {
     mainApi.deleteSaveMovie(movieId)
     .then(() => {
       setSavedMoviesList((prev) => prev.filter(movie => movie._id !== movieId));
+      setSavedFiltredMoviesList((prev) => prev.filter(movie => movie._id !== movieId));
     })
     .catch(err => {
       console.log(err);
@@ -166,7 +171,7 @@ function App() {
     let selectedMovies = [];
 
     movies.forEach((movie) => {
-        if (movie.duration <= 40) {
+        if (movie.duration <= SHORT_MOVIE_DURATION) {
           selectedMovies.push(movie);
         }
     });
@@ -194,7 +199,6 @@ function App() {
 
   function searchMovie(keyWord) {
     if (moviesList.length === 0) {
-      setRunPreloader(true);
       moviesApi.getMovies()
       .then((movies) => {
         setMoviesList(movies);
@@ -203,7 +207,6 @@ function App() {
         if (searchingMovie.length === 0) {
           moviesNotFound(keyWord);
         } else {
-          setRunPreloader(false);
           const searchingShortMovie = searchMovieByDuration(searchingMovie)
           setFiltredMoviesList(searchingShortMovie);
           setSearchingMoviesList(searchingMovie);
@@ -218,7 +221,6 @@ function App() {
         setIsServerError(true);
         console.log(err);
       })
-      .finally(setRunPreloader(false));
     }
     else {
       const searchingMovie = searchMovieByTitle(moviesList, keyWord);
@@ -236,6 +238,9 @@ function App() {
         }));
       }
     }
+    setTimeout(() => {
+      setRunPreloader(false);
+    }, 1000);
   }
 
   function searchSavedMovies(kewWord) {
@@ -260,12 +265,6 @@ function App() {
     selectedMovies(savedMoviesList, setSavedFiltredMoviesList);
     setIsFiltredSavedMovie(isShortMovie);
   }, [isShortMovie]);
-
-  useEffect(() => {
-    if (loggedIn) {
-        history.push("/movies");
-    }
-  }, [loggedIn]);
 
   return (
     <>
@@ -328,6 +327,7 @@ function App() {
               onSignOut={handleSignOut}
               onEditProfile={handleEditProfile}
               infoMessage={infoMessage}
+              onInfoMessage={setInfoMessage}
             />
           </ProtectedRoute>
           <Route exact path="/signin">

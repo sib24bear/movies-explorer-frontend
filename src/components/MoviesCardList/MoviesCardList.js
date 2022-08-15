@@ -1,5 +1,14 @@
 import './MoviesCardList.css';
 import { useCallback, useEffect, useState } from 'react';
+import { 
+  TABLET_WIDTH,
+  MOBILE_WIDTH,
+  MAX_COUNT_CARDS,
+  MEDIUM_COUNT_CARDS,
+  MIN_COUNT_CARDS,
+  MAX_COUNT_LOAD_CARDS,
+  MIN_COUNT_LOAD_CARDS 
+} from '../../utils/constants';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 
@@ -19,20 +28,20 @@ function MoviesCardList({
   const trackDisplayWidth = useCallback(() => window.innerWidth, []);
 
   function getInitialMovies(width) {
-    if (width >= 1130) {
-      return 12;
+    if (width >= TABLET_WIDTH) {
+      return MAX_COUNT_CARDS;
     }
-    if (width >= 768) {
-      return 8;
+    if (width >= MOBILE_WIDTH) {
+      return MEDIUM_COUNT_CARDS ;
     }
-    return 5;
+    return MIN_COUNT_CARDS;
   };
   
   function loadMoreMovies(width) {
-    if (width >= 1130) {
-      return 3;
+    if (width >= TABLET_WIDTH) {
+      return MAX_COUNT_LOAD_CARDS;
     }
-    return 2;
+    return MIN_COUNT_LOAD_CARDS;
   };
 
   function handleMoreMoviesClick() {
@@ -54,55 +63,55 @@ function MoviesCardList({
     };
   }, [trackDisplayWidth]);
 
-  if (searchingMovies.length > 0) {
-    return (
-      <section className="movies-cards">
-        {isPreloader && <Preloader />}
-        <ul className="movies-cards__list">
-          {
-            searchingMovies.slice(0, displaySavedMovies).map((movie) => {
-              return (
-                <li key={isSaved ? movie.movieId : movie.id} className="movies-cards__item">
-                  <MoviesCard
-                    isSaved={isSaved}
-                    movie={isSaved ? movie : movie}
-                    declOfNum={declOfNum}
-                    onLikeMovie={onLikeMovie}
-                    onDeleteMovie={onDeleteMovie}
-                    savedMovies={savedMovies}
-                  />
-                </li>
-              )
-            })
-          }
-        </ul>
-        <div className="movies-cards__more-movies">
-          {
-            displaySavedMovies < searchingMovies.length && <button
-              onClick={handleMoreMoviesClick}
-              className={
-                isSaved ?
-                "movies-cards__more-button movies-cards__more-button_type_hidden"
-                :
-                "movies-cards__more-button"
+  return (
+    <section className="movies-cards">
+      {isPreloader && <Preloader />}
+      {
+        searchingMovies.length ? 
+          <>
+            <ul className="movies-cards__list">
+              {
+                searchingMovies.slice(0, displaySavedMovies).map((movie) => {
+                  return (
+                    <li key={isSaved ? movie.movieId : movie.id} className="movies-cards__item">
+                      <MoviesCard
+                        isSaved={isSaved}
+                        movie={isSaved ? movie : movie}
+                        declOfNum={declOfNum}
+                        onLikeMovie={onLikeMovie}
+                        onDeleteMovie={onDeleteMovie}
+                        savedMovies={savedMovies}
+                      />
+                    </li>
+                  )
+                })
               }
-            >Ещё</button>
-          }
-        </div>
-      </section>
-    );
-  } 
-  else {
-    return (
-      <section className="movies-cards">
-        <ul className="movies-cards__list"></ul>
-        <div className="movies-cards__more-movies">
-          {isNotFound && <span className="movies-cards__no-found">Ничего не найдено</span>}
-          {isServerError && <span className="movies-cards__server-error">"Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"</span>}
-        </div>
-      </section>
-    );
-  }
+            </ul>
+            <div className="movies-cards__more-movies">
+              {
+                displaySavedMovies < searchingMovies.length && <button
+                  onClick={handleMoreMoviesClick}
+                  className={
+                    isSaved ?
+                    "movies-cards__more-button movies-cards__more-button_type_hidden"
+                    :
+                    "movies-cards__more-button"
+                  }
+                >Ещё</button>
+              }
+            </div>
+          </>
+        :
+          <>
+            <ul className="movies-cards__list"></ul>
+            <div className="movies-cards__more-movies">
+              {isNotFound && <span className="movies-cards__no-found">Ничего не найдено</span>}
+              {isServerError && <span className="movies-cards__server-error">"Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"</span>}
+            </div>
+          </>
+      }
+    </section>
+  );
 }
 
 export default MoviesCardList;

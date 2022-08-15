@@ -3,6 +3,7 @@ import { useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm({
+  onPreloader,
   onSearchMovie,
   onSearchSavedMovies,
   onFiltredSavedMovie,
@@ -35,6 +36,7 @@ function SearchForm({
   function handleSubmit(e) {
     e.preventDefault();
     if (searchInput.search.length) {
+      onPreloader(true);
       onSearchMovie(searchInput.search);
     }
   }
