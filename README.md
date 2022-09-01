@@ -16,4 +16,4 @@
   https://movies.diplom.nomoredomains.xyz
 
 ### Pull Request
-  https://github.com/sib24bear/movies-explorer-frontend/pull/2
+  https://github.com/sib24bear/movies-explorer-frontend/pull/3
